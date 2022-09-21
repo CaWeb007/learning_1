@@ -1,9 +1,13 @@
-const ProductList = () => {
+import Link from "next/link";
+
+const ProductList = ({productId = 100}) => {
     return (
         <>
-            <h4>Product 1</h4>
-            <h4>Product 2</h4>
-            <h4>Product 3</h4>
+            <Link href={'/'}><a>Home</a></Link>
+            <h4><Link href={'/product/1'}><a>Product 1</a></Link></h4>
+            <h4><Link href={'/product/2'}><a>Product 2</a></Link></h4>
+            <h4><Link href={'/product/3'} replace><a>Product 3</a></Link></h4>
+            <h4><Link href={`/product/${productId}`}><a>Product {productId}</a></Link></h4>
         </>
     );
 };
