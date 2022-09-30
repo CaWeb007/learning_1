@@ -43,8 +43,6 @@ export async function getStaticProps(context){
     if (!data.id) return {
         notFound: true
     }
-    console.log(`Generating post page ${params.postId}`)
-
     return {
         props: {
             post: data
