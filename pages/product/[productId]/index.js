@@ -25,9 +25,11 @@ export async function getStaticProps(context) {
     const {params} = context
     const response = await fetch(`http://localhost:4000/product/${params.productId}`)
     const data = await response.json()
+    console.log(`Revalidation product ${params.productId}`)
     return {
         props: {
             product: data
-        }
+        },
+        revalidate: 20
     }
 }
