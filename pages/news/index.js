@@ -31,7 +31,8 @@ const NewsList = ({news, categoryList}) => {
     )
 }
 export default NewsList
-export async function getServerSideProps() {
+export async function getServerSideProps({res}) {
+    res.setHeader('Set-Cookie', ["name=Pavel"])
     const response = await fetch('http://localhost:4000/news')
     const data = await response.json()
     const categoryList = getCategoryList(data)
