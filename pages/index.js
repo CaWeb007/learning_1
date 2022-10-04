@@ -11,10 +11,11 @@ function Home() {
     return (
         <div>
             <h1>Home page</h1>
-            <Link href={'/blog'}><a>Blog</a></Link>
-            <Link href={'/product'}><a>Product</a></Link>
-            <Link href={'/users'}><a>Users</a></Link>
-            <Link href={'/posts'}><a>Posts</a></Link>
+            <Link href={'/blog'}><a>Blog</a></Link><br/>
+            <Link href={'/product'}><a>Product</a></Link><br/>
+            <Link href={'/users'}><a>Users</a></Link><br/>
+            <Link href={'/posts'}><a>Posts</a></Link><br/>
+            <Link href={'/news'}><a>News</a></Link><br/>
             <button onClick={handleClick}>
                 Place Order
             </button>

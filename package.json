@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "mock": "json-server --watch db.json --port 4000",
-    "serve": "concurrently mock dev"
+    "serve": "concurrently \"yarn dev\" \"yarn mock\""
   },
   "dependencies": {
     "json-server": "^0.17.0",
