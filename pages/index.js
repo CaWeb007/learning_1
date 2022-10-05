@@ -16,6 +16,7 @@ function Home() {
             <Link href={'/users'}><a>Users</a></Link><br/>
             <Link href={'/posts'}><a>Posts</a></Link><br/>
             <Link href={'/news'}><a>News</a></Link><br/>
+            <Link href={'/profile'}><a>Profile</a></Link><br/>
             <button onClick={handleClick}>
                 Place Order
             </button>
