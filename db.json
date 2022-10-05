@@ -18,8 +18,11 @@
   ],
   "dashboard": {
     "posts": 20,
-    "like": 3,
+    "like": 30,
     "followers": 10,
     "following": 15
-  }
+  },
+  "user": [
+    {"id": 1, "email": "reutov@caweb.ru", "name": "Pavel", "phone": "89501199805", "profession": "developer"}
+  ]
 }

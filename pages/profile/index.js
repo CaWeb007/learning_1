@@ -1,5 +1,10 @@
-import {useEffect, useState} from "react";
-
+import {useEffect, useState} from "react"
+import useSWR from "swr"
+const fetcher = async () => {
+    const response = await fetch('http://localhost:4000/user/1')
+    const data = await response.json()
+    return data
+}
 function Profile() {
     const [isLoading, setIsLoading] = useState(true)
     const [dashboard, setDashboard] = useState(null)
@@ -12,9 +17,10 @@ function Profile() {
         }
         fetchDashData()
     }, [])
-    if (isLoading)
+    const {data, error} = useSWR('userInfo', fetcher)
+
+    if (isLoading || !data)
         return <h2>Loading...</h2>
-    console.log(dashboard)
     return (
         <>
             <h1>Profile page</h1>
@@ -27,6 +33,15 @@ function Profile() {
                         </div>
                     )
                 })}
+            </div>
+            <div>
+                <h2>User Info</h2>
+                <table>
+                    <tr><td>Name</td><td>{data.name}</td></tr>
+                    <tr><td>Profession</td><td>{data.profession}</td></tr>
+                    <tr><td>Email</td><td>{data.email}</td></tr>
+                    <tr><td>Phone</td><td>{data.phone}</td></tr>
+                </table>
             </div>
         </>
     )
