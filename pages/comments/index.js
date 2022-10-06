@@ -17,6 +17,14 @@ const CommentsList = () => {
                 'Content-Type': 'application/json'
             }
         })
+        showCommentsList()
+    }
+
+    async function deleteComment(commentId) {
+        await fetch(`/api/comments/${commentId}`, {
+            method: 'DELETE'
+        })
+        showCommentsList()
     }
 
     return (<>
@@ -32,6 +40,8 @@ const CommentsList = () => {
                 return (
                     <div key={item.id}>
                         {item.text}
+                        <button onClick={() => deleteComment(item.id)}>Delete</button>
+
                     </div>
                 )
             })}
