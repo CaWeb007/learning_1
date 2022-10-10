@@ -19,7 +19,7 @@ function Home() {
             <Link href={'/profile'}><a>Profile</a></Link><br/>
             <Link href={'/events'}><a>Events</a></Link><br/>
             <Link href={'/comments'}><a>Comments</a></Link><br/>
-            <button onClick={handleClick}>
+            <button className={'btn btn-primary'} onClick={handleClick}>
                 Place Order
             </button>
         </div>
