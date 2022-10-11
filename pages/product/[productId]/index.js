@@ -1,5 +1,6 @@
 import {useRouter} from "next/router";
 import Head from "next/head";
+import Image from "next/image";
 
 const Product = ({product}) => {
     const router = useRouter()
@@ -11,6 +12,9 @@ const Product = ({product}) => {
             <Head>
                 <title>{product.title}</title>
             </Head>
+            <div className="image" style={{position: "relative", width: 600, height: 300}}>
+                <Image src={product.img} layout='fill'/>
+            </div>
             <h1>{product.title}</h1>
             <p>{product.description}</p>
             <strong>{product.price}</strong>

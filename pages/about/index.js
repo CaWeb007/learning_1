@@ -1,4 +1,4 @@
-import Footer from "../../components/Footer";
+import Footer from "../../components/footer";
 
 function About() {
     return <h1>About page</h1>

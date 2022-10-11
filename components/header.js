@@ -1,5 +1,7 @@
 import Link from "next/link";
 import {useRouter} from "next/router";
+import logo from "../public/boots/boots1.jpg"
+import Image from "next/image";
 
 function Header() {
     const router = useRouter()
@@ -10,6 +12,9 @@ function Header() {
     }
     return (
         <div>
+            <div className="logo" style={{height: 100, width: 200, position: "relative"}}>
+                <Image layout='fill' className={'test'} src={logo} placeholder='blur'/>
+            </div>
             <Link href={'/blog'}><a>Blog</a></Link><br/>
             <Link href={'/product'}><a>Product</a></Link><br/>
             <Link href={'/users'}><a>Users</a></Link><br/>

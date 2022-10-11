@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Head from "next/head";
+import Image from "next/image";
 
 const ProductList = ({products}) => {
     const pageTitle = 'ProductList'
@@ -14,6 +15,7 @@ const ProductList = ({products}) => {
                 {products.map(item => {
                     return(
                         <div key={item.id} className="productItem">
+                            <Image src={item.img} alt={item.title} height={100} width={150}/>
                             <h2><Link href={`/product/${item.id}`}><a>{item.title}</a></Link></h2>
                             <strong>{item.price}</strong>
                             <hr/>
