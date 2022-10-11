@@ -1,4 +1,5 @@
 import {useRouter} from "next/router";
+import Head from "next/head";
 
 const Product = ({product}) => {
     const router = useRouter()
@@ -7,6 +8,9 @@ const Product = ({product}) => {
     }
     return (
         <>
+            <Head>
+                <title>{product.title}</title>
+            </Head>
             <h1>{product.title}</h1>
             <p>{product.description}</p>
             <strong>{product.price}</strong>

@@ -1,9 +1,14 @@
 import Link from "next/link";
+import Head from "next/head";
 
 const ProductList = ({products}) => {
+    const pageTitle = 'ProductList'
     return(
         <>
-            <h1>Product List</h1>
+            <Head>
+                <title>{pageTitle}</title>
+            </Head>
+            <h1>{pageTitle}</h1>
             <br/>
             <div className="productWrapper">
                 {products.map(item => {
