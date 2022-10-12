@@ -31,9 +31,12 @@ const NewsList = ({news, categoryList}) => {
     )
 }
 export default NewsList
-export async function getServerSideProps({res}) {
+export async function getServerSideProps({res, preview}) {
+    let url = "http://localhost:4000/news"
+    if (preview)
+        url = "http://localhost:4000/events"
     res.setHeader('Set-Cookie', ["name=Pavel"])
-    const response = await fetch('http://localhost:4000/news')
+    const response = await fetch(url)
     const data = await response.json()
     const categoryList = getCategoryList(data)
     return {
