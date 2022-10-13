@@ -14,7 +14,7 @@ const NewsCategoryItemList = ({news, category}) => {
                 )
             })}
             <br/>
-            <i><Link href="/../news/"><a>Back to news</a></Link></i>
+            <i><Link href="/news"><a>Back to news</a></Link></i>
         </>
     );
 };
@@ -25,6 +25,10 @@ export async function getServerSideProps(context) {
     const {params} = context
     const response = await fetch(`http://localhost:4000/news/?category=${params.category}`)
     const data = await response.json()
+    if(!data.length)
+        return {
+            notFound: true
+        }
     return {
         props: {
             news: data,
