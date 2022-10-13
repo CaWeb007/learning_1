@@ -32,9 +32,9 @@ const NewsList = ({news, categoryList}) => {
 }
 export default NewsList
 export async function getServerSideProps({res, preview}) {
-    let url = "http://localhost:4000/news"
+    let url = `${process.env.DB_URL}/news`
     if (preview)
-        url = "http://localhost:4000/events"
+        url = `${process.env.DB_URL}/events`
     res.setHeader('Set-Cookie', ["name=Pavel"])
     const response = await fetch(url)
     const data = await response.json()
