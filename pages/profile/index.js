@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react"
 import useSWR from "swr"
+import {getSession, signIn} from "next-auth/client";
 const fetcher = async () => {
     const response = await fetch('http://localhost:4000/user/1')
     const data = await response.json()
@@ -8,6 +9,18 @@ const fetcher = async () => {
 function Profile() {
     const [isLoading, setIsLoading] = useState(true)
     const [dashboard, setDashboard] = useState(null)
+    const [loadingSess, setloadingSess] = useState(true)
+    useEffect(() => {
+        const securePage = async () => {
+            const session = await getSession()
+            if (!session) {
+                signIn()
+            } else {
+                setloadingSess(false)
+            }
+        }
+        securePage()
+    }, [])
     useEffect(() => {
         async function fetchDashData() {
             const response = await fetch('http://localhost:4000/dashboard')
@@ -19,8 +32,9 @@ function Profile() {
     }, [])
     const {data, error} = useSWR('userInfo', fetcher)
 
-    if (isLoading || !data)
+    if (isLoading || !data || loadingSess)
         return <h2>Loading...</h2>
+
     return (
         <>
             <h1>Profile page</h1>
