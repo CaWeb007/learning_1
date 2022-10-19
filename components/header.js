@@ -3,6 +3,7 @@ import logo from "../public/boots/boots1.jpg"
 import Image from "next/image";
 import PrimaryMenu from "components/menu/PrimaryMenu";
 import {Col, Row} from "react-bootstrap";
+import Auth from "./auth";
 
 function Header() {
     const router = useRouter()
@@ -26,9 +27,9 @@ function Header() {
                     Place Order
                 </button>
             </Col>
-
-
-
+            <Col lg={1}>
+                <Auth/>
+            </Col>
         </Row>
     )
 }
