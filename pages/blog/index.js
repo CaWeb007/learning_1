@@ -1,4 +1,7 @@
 import {useRouter} from "next/router";
+import {getSession} from "next-auth/client";
+import Footer from "../../components/footer";
+import About from "../about";
 
 function Blog() {
     const router = useRouter()
@@ -13,3 +16,12 @@ function Blog() {
     )
 }
 export default Blog
+
+export async function getServerSideProps (context){
+    const session = await getSession(context)
+    return {
+        props: {
+            session
+        }
+    }
+}

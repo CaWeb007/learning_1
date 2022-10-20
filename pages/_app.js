@@ -4,20 +4,22 @@ import Header from "components/header"
 import Footer from "components/footer"
 import Head from "next/head";
 import {Container} from "react-bootstrap";
-import {Provider} from "next-auth/client";
+import {Provider, session} from "next-auth/client";
 
 function MyApp({ Component, pageProps }) {
     if (Component.getLayout)
         return Component.getLayout(<Component {...pageProps} />)
+    console.log(pageProps.session)
     return (
-        <Provider>
+        <Provider session={pageProps.session}>
             <Container>
                 <Head>
                     <title>Default title</title>
                     <link rel="shortcut icon" href="/favicon.ico" />
                 </Head>
                 <Header/>
-                <Component {...pageProps} />
+                {(pageProps.session === null) && ('test access')}
+                {(pageProps.session || pageProps.session===undefined) && (<Component {...pageProps} />)}
                 <Footer/>
             </Container>
         </Provider>

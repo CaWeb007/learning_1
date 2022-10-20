@@ -1,9 +1,11 @@
 import {useState} from "react";
+import {getSession, useSession} from "next-auth/client";
 
-const CommentsList = () => {
+const CommentsList = (/*{session}*/) => {
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
     const [updatedComment, setUpdatedComment] = useState([])
+    const [session] = useSession()
     async function showCommentsList(){
         const res = await fetch('/api/comments')
         const data = await res.json()
@@ -11,7 +13,6 @@ const CommentsList = () => {
         setComment('')
         setUpdatedComment([])
     }
-
     const sendComment = async () => {
         await fetch('/api/comments', {
             method: 'POST',
@@ -45,10 +46,13 @@ const CommentsList = () => {
         setUpdatedComment(newState)
     }
     return (<>
-        <div>
-            <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
-            <button onClick={sendComment}>Send comment</button>
-        </div>
+        {session && (
+            <div>
+                <input type="text" value={comment} onChange={(e) => setComment(e.target.value)}/>
+                <button onClick={sendComment}>Send comment</button>
+            </div>
+        )}
+
         <div>
             <button onClick={showCommentsList}>Load comments</button>
         </div>
@@ -57,9 +61,13 @@ const CommentsList = () => {
                 return (
                     <div key={item.id}>
                         {item.text}({item.id})
-                        <button onClick={() => deleteComment(item.id)}>Delete</button>
-                        <input type="text" id={item.id} value={updatedComment[item.id]} onChange={onChangeUpdateInput}/>
-                        <button onClick={() => updateComment(item.id)}>Update</button>
+                        {session && (
+                            <>
+                                <button onClick={() => deleteComment(item.id)}>Delete</button>
+                                <input type="text" id={item.id} value={updatedComment[item.id]} onChange={onChangeUpdateInput}/>
+                                <button onClick={() => updateComment(item.id)}>Update</button>
+                            </>
+                        )}
                     </div>
                 )
             })}
@@ -67,3 +75,12 @@ const CommentsList = () => {
     </>)
 }
 export default CommentsList
+
+export async function getServerSideProps (context){
+    const session = await getSession(context)
+    return {
+        props: {
+            session
+        }
+    }
+}

@@ -6,7 +6,7 @@ const Auth = () => {
     const [session, loading] = useSession()
     return (
         <Row>
-            {!loading && !session && (
+            {!session && (
                 <Col lg={6}>
                     <Link href={'api/auth/signin'}><a onClick={event => {
                         event.preventDefault()
