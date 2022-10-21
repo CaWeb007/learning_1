@@ -1,15 +1,28 @@
-import {comments} from "data/comments";
+import dbConnect from "utils/dbConnect";
+import Comments from "models/Comments";
 
-export default function handler(req, res){
-    if (req.method === 'GET'){
-        res.status(200).json(comments)
-    }else if (req.method === 'POST') {
-        const newId = parseInt(comments[comments.length - 1].id) + 1
+export default async function handler(req, res){
+    const {method} = req
+
+    await dbConnect()
+
+    if (method === 'GET'){
+        try{
+            const comments = await Comments.find()
+            res.status(200).json(comments)
+        }catch (e){
+            res.status(500).json(e)
+        }
+    }
+    if (method === 'POST') {
         const newComment = {
-            id: newId,
             text: req.body.comment
         }
-        comments.push(newComment)
-        res.status(200).json(comments)
+        try{
+            const comment = await Comments.create(newComment)
+            res.status(200).json(comment)
+        }catch (e){
+            res.status(500).json(e)
+        }
     }
 }

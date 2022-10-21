@@ -21,14 +21,14 @@ const CommentsList = (/*{session}*/) => {
                 'Content-Type': 'application/json'
             }
         })
-        showCommentsList()
+        await showCommentsList()
     }
 
     async function deleteComment(commentId) {
         await fetch(`/api/comments/${commentId}`, {
             method: 'DELETE'
         })
-        showCommentsList()
+        await showCommentsList()
     }
     const updateComment = async (commentId) => {
         await fetch(`/api/comments/${commentId}`, {
@@ -38,11 +38,11 @@ const CommentsList = (/*{session}*/) => {
                 'Content-Type': 'application/json'
             }
         })
-        showCommentsList()
+        await showCommentsList()
     }
     const onChangeUpdateInput = (e) => {
         const newState = updatedComment
-        newState[parseInt(e.target.id)] = e.target.value
+        newState[e.target.id] = e.target.value
         setUpdatedComment(newState)
     }
     return (<>
@@ -59,13 +59,13 @@ const CommentsList = (/*{session}*/) => {
         <div>
             {comments.map(item => {
                 return (
-                    <div key={item.id}>
-                        {item.text}({item.id})
+                    <div key={item._id}>
+                        {item.text}
                         {session && (
                             <>
-                                <button onClick={() => deleteComment(item.id)}>Delete</button>
-                                <input type="text" id={item.id} value={updatedComment[item.id]} onChange={onChangeUpdateInput}/>
-                                <button onClick={() => updateComment(item.id)}>Update</button>
+                                <button onClick={() => deleteComment(item._id)}>Delete</button>
+                                <input type="text" id={item._id} value={updatedComment[item._id]} onChange={onChangeUpdateInput}/>
+                                <button onClick={() => updateComment(item._id)}>Update</button>
                             </>
                         )}
                     </div>

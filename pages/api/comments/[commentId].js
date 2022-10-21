@@ -1,17 +1,26 @@
-import {comments} from "data/comments";
+import dbConnect from "utils/dbConnect";
+import Comments from "models/Comments";
 
-export default function handler(req, res){
+export default async function handler(req, res){
     const {commentId} = req.query
-    if (req.method === 'GET'){
-        const comment = comments.find((comment) => comment.id === parseInt(commentId))
-        res.status(200).json(comment)
-    }else if(req.method === 'DELETE'){
-        const index = comments.findIndex((comment) => comment.id === parseInt(commentId))
-        comments.splice(index, 1)
-        res.status(200).json(comments)
-    }else if (req.method === 'POST'){
-        const index = comments.findIndex((comment) => comment.id === parseInt(commentId))
-        comments[index].text = req.body.comment
-        res.status(200).json(comments)
+    const {method} = req
+    await dbConnect()
+    try {
+        let result = null
+        if (method === 'GET'){
+            result = await Comments.findById(commentId)
+        }
+        if(method === 'DELETE'){
+            result = await Comments.deleteOne({_id: commentId})
+        }
+        if (method === 'POST'){
+            result = await Comments.updateOne({_id: commentId}, {text: req.body.comment})
+        }
+        if (result !== null)
+            res.status(200).json(result)
+    }catch (e) {
+        console.log(e)
+        res.status(500).json(e)
     }
+
 }
