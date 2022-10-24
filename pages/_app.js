@@ -9,7 +9,7 @@ import {Provider, session} from "next-auth/client";
 function MyApp({ Component, pageProps }) {
     if (Component.getLayout)
         return Component.getLayout(<Component {...pageProps} />)
-    console.log(pageProps.session)
+    //if (pageProps.session) console.log(pageProps.session)
     return (
         <Provider session={pageProps.session}>
             <Container>

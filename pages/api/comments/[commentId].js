@@ -14,7 +14,7 @@ export default async function handler(req, res){
             result = await Comments.deleteOne({_id: commentId})
         }
         if (method === 'POST'){
-            result = await Comments.updateOne({_id: commentId}, {text: req.body.comment})
+            result = await Comments.updateOne({_id: commentId}, {text: req.body.text})
         }
         if (result !== null)
             res.status(200).json(result)

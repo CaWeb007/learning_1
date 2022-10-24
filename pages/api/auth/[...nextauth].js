@@ -8,12 +8,26 @@ export default NextAuth({
             clientSecret: process.env.GITHUB_SECRET_KEY
         })
     ],
-    database: "mongodb://localhost:27017/nextauthDB",
+    database: process.env.MDB_URL,
     session: {
         jwt: true
     },
     jwt: {
         secret: 'jfjfj'
+    },
+    callbacks: {
+        async jwt(token, user){
+            if (user && user.hasOwnProperty('id')){
+                token.id = user.id
+            }
+            return token
+        },
+        async session(session, token){
+            if (token && token.hasOwnProperty('id'))
+                session.user.id = token.id
+            return session
+        }
+
     }
 })
 //http://localhost:3000/api/auth/signin
